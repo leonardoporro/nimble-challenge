@@ -1,6 +1,5 @@
 ﻿using Calculator.BusinessLogic.Serialization;
 using Calculator.BusinessLogic.Validations;
-using Calculator.BusinessLogic.Validations.Exceptions;
 using FluentAssertions;
 
 namespace Calculator.BusinessLogic.Tests;
@@ -16,7 +15,6 @@ public sealed class CalculatorServiceTests
 
         var validators = new IListValidator[]
         {
-            new UpperCountValidator()
         };
 
         return new CalculatorService(serializer, validators);
@@ -25,9 +23,9 @@ public sealed class CalculatorServiceTests
     [Fact]
     public void Add_SingleNumber_ReturnsThatNumber()
     {
-        var sut = CreateService();
+        var service = CreateService();
 
-        var result = sut.Resolve("20");
+        var result = service.Resolve("20");
 
         result.Should().Be(20);
     }
@@ -35,9 +33,9 @@ public sealed class CalculatorServiceTests
     [Fact]
     public void Add_TwoNumbers_ReturnsSum()
     {
-        var sut = CreateService();
+        var service = CreateService();
 
-        var result = sut.Resolve("1,5000");
+        var result = service.Resolve("1,5000");
 
         result.Should().Be(5001);
     }
@@ -45,9 +43,9 @@ public sealed class CalculatorServiceTests
     [Fact]
     public void Add_EmptyInput_ReturnsZero()
     {
-        var sut = CreateService();
+        var service = CreateService();
 
-        var result = sut.Resolve(string.Empty);
+        var result = service.Resolve(string.Empty);
 
         result.Should().Be(0);
     }
@@ -55,9 +53,9 @@ public sealed class CalculatorServiceTests
     [Fact]
     public void Add_MissingSecondNumber_IsConvertedToZero()
     {
-        var sut = CreateService();
+        var service = CreateService();
 
-        var result = sut.Resolve("5,");
+        var result = service.Resolve("5,");
 
         result.Should().Be(5);
     }
@@ -65,21 +63,20 @@ public sealed class CalculatorServiceTests
     [Fact]
     public void Add_InvalidNumber_IsConvertedToZero()
     {
-        var sut = CreateService();
+        var service = CreateService();
 
-        var result = sut.Resolve("5,tytyt");
+        var result = service.Resolve("5,tytyt");
 
         result.Should().Be(5);
     }
 
     [Fact]
-    public void Add_MoreThanTwoNumbers_Throws()
+    public void Add_MoreThanTwoNumbers_Returns()
     {
-        var sut = CreateService();
+        var service = CreateService();
 
-        Action act = () => sut.Resolve("1,2,3");
+        var result = service.Resolve("1,2,3,4,5,6,7,8,9,10,11,12");
 
-        act.Should().Throw<ItemCountException>()
-           .WithMessage("*3*2*");
+        result.Should().Be(78);
     }
 }
