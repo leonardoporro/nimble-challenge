@@ -10,7 +10,7 @@ public sealed class CalculatorServiceTests
     {
         var serializer = new DelimitedListSerializer
         {
-            Delimiters = [ "," ]
+            Delimiters = [ ",", "\n" ]
         };
 
         var validators = new IListValidator[]
@@ -71,12 +71,52 @@ public sealed class CalculatorServiceTests
     }
 
     [Fact]
-    public void Add_MoreThanTwoNumbers_Returns()
+    public void Add_MoreThanTwoNumbers_ReturnsSum()
     {
         var service = CreateService();
 
         var result = service.Resolve("1,2,3,4,5,6,7,8,9,10,11,12");
 
         result.Should().Be(78);
+    }
+
+    [Fact]
+    public void Add_NewlineDelimiter_ReturnsSum()
+    {
+        var service = CreateService();
+
+        var result = service.Resolve("1\n2");
+
+        result.Should().Be(3);
+    }
+
+    [Fact]
+    public void Add_NewlineAndCommaDelimiters_CanBeMixed()
+    {
+        var service = CreateService();
+
+        var result = service.Resolve("1\n2,3");
+
+        result.Should().Be(6);
+    }
+
+    [Fact]
+    public void Add_OnlyNewlineDelimiter_ReturnsSum()
+    {
+        var service = CreateService();
+
+        var result = service.Resolve("4\n-3");
+
+        result.Should().Be(1);
+    }
+
+    [Fact]
+    public void Add_EmptyLineBetweenNumbers_IsTreatedAsZero()
+    {
+        var service = CreateService();
+
+        var result = service.Resolve("5\n\n");
+
+        result.Should().Be(5);
     }
 }

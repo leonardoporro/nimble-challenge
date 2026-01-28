@@ -2,5 +2,5 @@
 
 public interface IListSerializer
 {
-    public List<double> Deserialize(string serializedNumbers);
+    List<double> Deserialize(string serializedNumbers); 
 }

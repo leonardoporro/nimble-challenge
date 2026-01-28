@@ -1,4 +1,5 @@
 ﻿using Calculator.BusinessLogic;
+using Calculator.ConsoleApp.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -12,6 +13,7 @@ public static class Program
             .ConfigureServices((context, services) =>
             {
                 services.AddCalculator();
+                services.AddSingleton<IInputReader, MultilineInputReader>();
                 services.AddHostedService<CalculatorRunner>();
             })
             .Build();

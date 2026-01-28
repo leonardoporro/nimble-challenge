@@ -4,8 +4,8 @@ namespace Calculator.BusinessLogic.Serialization;
 
 public class DelimitedListSerializer : IListSerializer
 {
-    public string[] Delimiters { get; set; } = [","];
-
+    public string[] Delimiters { get; set; } = [",", "\n"];
+      
     public List<double> Deserialize(string serializedNumbers)
     {
         if (string.IsNullOrWhiteSpace(serializedNumbers))

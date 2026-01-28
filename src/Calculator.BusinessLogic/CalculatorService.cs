@@ -4,17 +4,18 @@ using Calculator.BusinessLogic.Validations;
 namespace Calculator.BusinessLogic;
 
 public class CalculatorService
-{
-    readonly IListSerializer _serializer;
-    readonly IEnumerable<IListValidator> _validators;
-    
+{ 
     public CalculatorService(
         IListSerializer serializer,
         IEnumerable<IListValidator> validators)
     {
-        _serializer = serializer;
-        _validators = validators;
+        Serializer = serializer;
+        Validators = validators;
     }
+
+    public IListSerializer Serializer { get; }
+
+    public IEnumerable<IListValidator> Validators { get; }
 
     public double Resolve(string? numberListLine)
     {
@@ -23,9 +24,9 @@ public class CalculatorService
             return 0;
         }
 
-        var numberList = _serializer.Deserialize(numberListLine);
+        var numberList = Serializer.Deserialize(numberListLine);
         
-        foreach (var validator in _validators)
+        foreach (var validator in Validators)
         {
             validator.Validate(numberList);
         }
