@@ -2,5 +2,5 @@
 
 public interface IListSerializer
 {
-    List<double> Deserialize(string serializedNumbers); 
+    List<double> Deserialize(string? serializedNumbers, out string[] parts); 
 }

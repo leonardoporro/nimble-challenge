@@ -33,8 +33,9 @@ public sealed class CalculatorRunner : BackgroundService
 
             try
             {
-                var result = _calculator.Resolve(input);
+                var result = _calculator.Resolve(input, out string formula);
                 Console.WriteLine(result);
+                Console.WriteLine(formula);
             }
             catch (Exception ex)
             {

@@ -6,10 +6,13 @@ public class DelimitedListSerializer : IListSerializer
 {
     public string[] Delimiters { get; set; } = [","];
 
-    public List<double> Deserialize(string serializedNumbers)
+    public List<double> Deserialize(string? serializedNumbers, out string[] parts)
     {
         if (string.IsNullOrWhiteSpace(serializedNumbers))
+        {
+            parts = [];
             return new List<double> { 0 };
+        }
 
         var delimiters = Delimiters;
         var numbersPart = serializedNumbers;
@@ -47,7 +50,7 @@ public class DelimitedListSerializer : IListSerializer
             numbersPart = serializedNumbers.Substring(4);
         }
 
-        var parts = numbersPart.Split(
+        parts = numbersPart.Split(
             delimiters,
             StringSplitOptions.None);
 
