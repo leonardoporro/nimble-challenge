@@ -11,5 +11,6 @@ public static class Setup
         services.AddSingleton<CalculatorService>();
         services.AddSingleton<IListSerializer, DelimitedListSerializer>();
         services.AddSingleton<IListValidator, NegativeNotAllowedValidator>();
+        services.AddSingleton<IListValidator, UpperBoundNormalizer>();
     }
 }
