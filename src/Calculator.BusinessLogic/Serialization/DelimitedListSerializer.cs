@@ -14,20 +14,30 @@ public class DelimitedListSerializer : IListSerializer
         var delimiters = Delimiters;
         var numbersPart = serializedNumbers;
 
-        // Step 7: custom delimiter of any length: //[delimiter]\n
         if (serializedNumbers.StartsWith("//["))
         {
-            var endIndex = serializedNumbers.IndexOf("]\n", StringComparison.Ordinal);
-            if (endIndex < 0)
+            var delimiterList = new List<string>();
+            var index = 2; 
+
+            while (index < serializedNumbers.Length && serializedNumbers[index] == '[')
+            {
+                var end = serializedNumbers.IndexOf(']', index);
+                if (end < 0)
+                    throw new InvalidOperationException("Invalid custom delimiter format.");
+
+                delimiterList.Add(
+                    serializedNumbers.Substring(index + 1, end - index - 1));
+
+                index = end + 1;
+            }
+
+            if (index >= serializedNumbers.Length || serializedNumbers[index] != '\n')
                 throw new InvalidOperationException("Invalid custom delimiter format.");
 
-            var customDelimiter =
-                serializedNumbers.Substring(3, endIndex - 3);
-
-            delimiters = new[] { customDelimiter };
-            numbersPart = serializedNumbers.Substring(endIndex + 2);
+            delimiters = delimiterList.ToArray();
+            numbersPart = serializedNumbers.Substring(index + 1);
         }
-        // Step 6: custom single-character delimiter: //d\n
+
         else if (serializedNumbers.StartsWith("//"))
         {
             if (serializedNumbers.Length < 4 || serializedNumbers[3] != '\n')
