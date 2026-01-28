@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Calculator.BusinessLogic/Calculator.BusinessLogic.csproj" />
+    <Project Path="src/Calculator.ConsoleApp/Calculator.ConsoleApp.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="test/Calculator.BusinessLogic.Tests/Calculator.BusinessLogic.Tests.csproj" Id="4dfa6a78-b72a-4b1f-9228-fca6528507b6" />
+  </Folder>
+</Solution>
