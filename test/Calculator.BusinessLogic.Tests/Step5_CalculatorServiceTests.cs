@@ -1,5 +1,4 @@
-﻿using Calculator.BusinessLogic;
-using Calculator.BusinessLogic.Serialization;
+﻿using Calculator.BusinessLogic.Serialization;
 using Calculator.BusinessLogic.Validations;
 using FluentAssertions;
 
