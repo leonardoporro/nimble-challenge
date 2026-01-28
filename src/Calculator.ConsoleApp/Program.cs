@@ -10,6 +10,8 @@ public static class Program
 {
     public static async Task Main(string[] args)
     {
+        var options = CalculatorOptionsParser.FromArgs(args);
+
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureLogging(logging =>
             {
@@ -17,7 +19,7 @@ public static class Program
             })
             .ConfigureServices((context, services) =>
             {
-                services.AddCalculator();
+                services.AddCalculator(options);
                 services.AddSingleton<IInputReader, MultilineInputReader>();
                 services.AddHostedService<CalculatorRunner>();
             })

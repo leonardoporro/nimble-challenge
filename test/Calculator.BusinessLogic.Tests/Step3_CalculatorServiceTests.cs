@@ -8,6 +8,8 @@ public sealed class Step3_CalculatorServiceTests
 {
     CalculatorService CreateService()
     {
+        var options = new CalculatorOptions();
+
         var serializer = new DelimitedListSerializer
         {
             Delimiters = [",", "\n"]
@@ -17,7 +19,7 @@ public sealed class Step3_CalculatorServiceTests
         {
         };
 
-        return new CalculatorService(serializer, validators);
+        return new CalculatorService(options, serializer, validators);
     }
 
     [Fact]

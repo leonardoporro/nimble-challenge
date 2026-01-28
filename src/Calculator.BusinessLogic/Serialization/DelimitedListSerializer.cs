@@ -6,6 +6,8 @@ public class DelimitedListSerializer : IListSerializer
 {
     public string[] Delimiters { get; set; } = [","];
 
+    public double DefaultValue { get; set; } = 0;
+
     public List<double> Deserialize(string? serializedNumbers, out string[] parts)
     {
         if (string.IsNullOrWhiteSpace(serializedNumbers))
@@ -60,7 +62,7 @@ public class DelimitedListSerializer : IListSerializer
         {
             if (string.IsNullOrWhiteSpace(part))
             {
-                result.Add(0);
+                result.Add(DefaultValue);
                 continue;
             }
 
@@ -74,7 +76,7 @@ public class DelimitedListSerializer : IListSerializer
             }
             else
             {
-                result.Add(0);
+                result.Add(DefaultValue);
             }
         }
 

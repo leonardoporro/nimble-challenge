@@ -4,6 +4,7 @@
     <Project Path="src/Calculator.ConsoleApp/Calculator.ConsoleApp.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="test/Calculation.ConsoleApp.Tests/Calculation.ConsoleApp.Tests.csproj" Id="eddf97f4-2d1b-46d2-8730-408583fe4000" />
     <Project Path="test/Calculator.BusinessLogic.Tests/Calculator.BusinessLogic.Tests.csproj" Id="4dfa6a78-b72a-4b1f-9228-fca6528507b6" />
   </Folder>
 </Solution>

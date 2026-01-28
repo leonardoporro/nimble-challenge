@@ -8,6 +8,8 @@ public sealed class Step5_CalculatorServiceTests
 {
     CalculatorService CreateService()
     {
+        var options = new CalculatorOptions();
+
         var serializer = new DelimitedListSerializer
         {
             Delimiters = [",", "\n"]
@@ -19,7 +21,7 @@ public sealed class Step5_CalculatorServiceTests
             new UpperBoundNormalizer()
         };
 
-        return new CalculatorService(serializer, validators);
+        return new CalculatorService(options, serializer, validators);
     }
 
     [Fact]

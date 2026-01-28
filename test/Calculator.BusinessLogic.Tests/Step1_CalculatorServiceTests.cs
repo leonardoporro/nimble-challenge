@@ -9,6 +9,7 @@ public sealed class Step1_CalculatorServiceTests
 {
     CalculatorService CreateService()
     {
+        var options = new CalculatorOptions();
         var serializer = new DelimitedListSerializer
         {
             Delimiters = [ ",", "\n" ]
@@ -19,7 +20,7 @@ public sealed class Step1_CalculatorServiceTests
             new UpperCountValidator()
         };
 
-        return new CalculatorService(serializer, validators);
+        return new CalculatorService(options, serializer, validators);
     }
 
     [Fact]

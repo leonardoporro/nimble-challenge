@@ -3,10 +3,12 @@ using Calculator.BusinessLogic.Serialization;
 using Calculator.BusinessLogic.Validations;
 using FluentAssertions;
 
-public sealed class Stretch3_CalculatorServiceTests
+public sealed class Stretch1_CalculatorServiceTests
 {
     CalculatorService CreateService()
     {
+        var options = new CalculatorOptions();
+
         var serializer = new DelimitedListSerializer
         {
             Delimiters = [",", "\n"]
@@ -18,7 +20,7 @@ public sealed class Stretch3_CalculatorServiceTests
             new UpperBoundNormalizer()
         };
 
-        return new CalculatorService(serializer, validators);
+        return new CalculatorService(options, serializer, validators);
     }
 
     [Fact]
