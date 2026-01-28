@@ -21,9 +21,15 @@ public sealed class CalculatorRunner : BackgroundService
         CancellationToken stoppingToken)
     {
         Console.WriteLine("Calculator Challenge");
-        Console.WriteLine("Enter numbers: ");
+        Console.WriteLine("Enter numbers (Ctrl+C to exit)");
         Console.WriteLine();
 
+        Console.CancelKeyPress += (_, e) =>
+        {
+            e.Cancel = true;
+            Environment.Exit(0);
+        };
+ 
         while (!stoppingToken.IsCancellationRequested)
         {
             var input = _reader.Read();
@@ -45,5 +51,7 @@ public sealed class CalculatorRunner : BackgroundService
             Console.WriteLine();
             await Task.Yield();
         }
+
+        Console.WriteLine("Ctrl+C detected, exiting...");
     }
 }
